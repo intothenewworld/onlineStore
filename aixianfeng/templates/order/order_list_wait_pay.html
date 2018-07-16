@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+    <h3>待付款订单列表</h3>
+
+    <ul>
+        <!--订单信息展示-->
+        {% for order in orders %}
+            {% ifequal order.o_status 0 %}
+            <li>
+                <a href="">
+                    <p><!-- 订单id -->订单编号{{ order.id }}</p>
+                    {% for order_good in order.ordergoodsmodel_set.all %}
+                    <p><!-- 数量 -->商品数量：{{ order_good.goods_num }}</p>
+                        <!--展示商品的名称-->{{ order_good.goods.productlongname }}
+                        <li>
+                            <img src="{{ order_good.goods.productimg }}" alt="">
+                        </li>
+                    {% endfor %}
+                        <!--处理结束-->
+                </a>
+            </li>
+            {% endifequal %}
+        {% endfor %}
+        <!--订单处理结束-->
+
+
+    </ul>
+
+
+{% endblock %}
